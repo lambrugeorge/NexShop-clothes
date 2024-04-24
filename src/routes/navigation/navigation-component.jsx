@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { ReactComponent as NeXLogo } from '../../assets/nex.svg';
-import { Fragment } from 'react';
 import './navigation.styles.scss';
+import { UserContext } from '../../contexts/user.context';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
+import CartIcon from '../../components/card-icon/card-icon.component';
+import CartDropDown from '../../components/cart-dropdown/cart-dropdown.component';
+import { CartContext } from '../../contexts/cart-context';
 
 const Navigation = () => {
+    const { currentUser } = useContext(UserContext);
+    const { isCartOpen } =  useContext(CartContext);
     return (
-        <Fragment>
+        <>
             <div className='navigation'>
                 <Link className='logo-container' to='/'>
                     <NeXLogo className='logo' />
@@ -15,13 +21,20 @@ const Navigation = () => {
                     <Link className='nav-link' to='/shop'>
                         SHOP
                     </Link>
-                    <Link className='nav-link' to='/auth'>
-                        SIGN IN
-                    </Link>
+                    {currentUser ? (
+                        <span className='nav-link' onClick={ signOutUser }> 
+                            SIGN OUT 
+                        </span>
+                    ) : (
+                        <Link className='nav-link' to='/auth'> SIGN IN</Link>
+                    )}
+                    <CartIcon />
                 </div>
+                {isCartOpen && <CartDropDown /> }
             </div>
             <Outlet />
-        </Fragment>
+        </>
     );
 };
+
 export default Navigation;

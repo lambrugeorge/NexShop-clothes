@@ -1,9 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
-import './sign-up-form.styles.scss';
-
+import { SignUpContainer } from './sign-up-form.styles';
 
 const defaultFormFields = {
     displayName: '',
@@ -13,44 +12,34 @@ const defaultFormFields = {
 };
 
 const SignUpForm = () => {
-    // State-ul pentru formularul de înregistrare
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
-    // Funcție pentru resetarea valorilor formularului
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
     };
 
-    // Funcție pentru actualizarea valorilor formularului la fiecare modificare
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
     };
 
-    // Funcție pentru tratarea submit-ului formularului de înregistrare
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Verificăm dacă parolele coincid
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
 
         try {
-            // Creăm utilizatorul în baza de date Firebase Authentication
             const { user } = await createAuthUserWithEmailAndPassword(
                 email, 
                 password
             );
 
-            // Setăm utilizatorul curent în contextul aplicație
-
-            // Creăm documentul utilizatorului în baza de date Firestore
             await createUserDocumentFromAuth(user, { displayName });
 
-            // Resetăm valorile formularului
             resetFormFields();
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
@@ -62,10 +51,9 @@ const SignUpForm = () => {
     };
 
     return (
-        <div className="sign-up-container">
+        <SignUpContainer>
             <h2>Sign up with your email and password</h2>
             <form onSubmit={handleSubmit}>
-                {/* Componente pentru introducerea datelor */}
                 <FormInput 
                     label="Display Name"
                     type='text' 
@@ -98,12 +86,11 @@ const SignUpForm = () => {
                     name='confirmPassword' 
                     value={confirmPassword}
                 />
-                {/* Buton pentru trimiterea formularului */}
                 <Button type='submit'>
                     Sign Up
                 </Button>
             </form>
-        </div>
+        </SignUpContainer>
     );
 };
 

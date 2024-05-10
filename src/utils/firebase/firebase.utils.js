@@ -30,6 +30,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
+// eslint-disable-next-line
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
     prompt: "select_account"
@@ -39,8 +40,6 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
 export const db = getFirestore();
-
-
 
 
 export const addCollectionAndDocuments = async (
@@ -62,16 +61,8 @@ export const getCategoriesAndDocuments = async () => {
     const collectionRef = collection(db, 'categories');
     const q = query(collectionRef);
     const querySnapshot = await getDocs(q);
-    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-        const { title, items } = docSnapshot.data();
-        acc[title.toLowerCase()] = items;
-        return acc;
-    }, {});
-
-    return categoryMap;
+    return  querySnapshot.docs.map(docSnapshot => docSnapshot.data())
 }
-
-
 
 
 export const createUserDocumentFromAuth = async (

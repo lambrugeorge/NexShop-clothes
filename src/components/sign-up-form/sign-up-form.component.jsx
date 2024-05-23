@@ -1,8 +1,15 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+=======
+import { useDispatch } from 'react-redux';
+
+>>>>>>> 60a930f1d46d813b0516bd6b5c04b3f46a51dd2d
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
-import './sign-up-form.styles.scss';
+import { SignUpContainer } from './sign-up-form.styles';
+import { onSignUpStart } from "../../store/user/user.saga";
+
 
 
 const defaultFormFields = {
@@ -15,6 +22,9 @@ const defaultFormFields = {
 const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
+    const dispatch = useDispatch();
+
+
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
@@ -34,11 +44,15 @@ const SignUpForm = () => {
         }
 
         try {
+<<<<<<< HEAD
             const { user } = await createAuthUserWithEmailAndPassword(
                 email, 
                 password
             );
             await createUserDocumentFromAuth(user, { displayName });
+=======
+            dispatch(onSignUpStart(email, password, displayName));
+>>>>>>> 60a930f1d46d813b0516bd6b5c04b3f46a51dd2d
             resetFormFields();
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
@@ -50,7 +64,7 @@ const SignUpForm = () => {
     };
 
     return (
-        <div className="sign-up-container">
+        <SignUpContainer>
             <h2>Sign up with your email and password</h2>
             <form onSubmit={handleSubmit}>
                 <FormInput 
@@ -89,7 +103,7 @@ const SignUpForm = () => {
                     Sign Up
                 </Button>
             </form>
-        </div>
+        </SignUpContainer>
     );
 };
 

@@ -1,16 +1,25 @@
+<<<<<<< HEAD
 import React, { Fragment, useContext } from 'react';
+=======
+import React, { Fragment } from 'react';
+>>>>>>> 60a930f1d46d813b0516bd6b5c04b3f46a51dd2d
 import { Outlet } from 'react-router-dom';
 import { ReactComponent as NeXLogo } from '../../assets/nex.svg';
-import { UserContext } from '../../contexts/user.context';
-import { signOutUser } from '../../utils/firebase/firebase.utils';
-import CartIcon from '../../components/card-icon/card-icon.component';
+import CartIcon from '../../components/card-icon/cart-icon.component';
 import CartDropDown from '../../components/cart-dropdown/cart-dropdown.component';
-import { CartContext } from '../../contexts/cart-context';
+import { selectIsCartOpen } from '../../store/cart/cart.selector';
 import { NavigationContainer, NavLink, NavLinks, LogoContainer } from './navigation.styles';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCurrentUser } from '../../store/user/user.selector'
+import { signOutStart } from '../../store/user/user.action';
+
 
 const Navigation = () => {
-    const { currentUser } = useContext(UserContext);
-    const { isCartOpen } =  useContext(CartContext);
+    const dispatch = useDispatch();
+    const currentUser = useSelector(selectCurrentUser);
+    const isCartOpen = useSelector(selectIsCartOpen);
+    const signOutUser = () => dispatch(signOutStart());
+    
     return (
         <Fragment>
             <NavigationContainer>

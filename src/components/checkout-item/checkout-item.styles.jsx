@@ -1,3 +1,4 @@
+
 import styled from 'styled-components';
 
 export const CheckoutItemContainer = styled.div`
@@ -8,7 +9,6 @@ export const CheckoutItemContainer = styled.div`
   padding: 15px 0;
   font-size: 20px;
   align-items: center;
-
 `;
 
 export const ImageContainer = styled.div`
@@ -31,7 +31,6 @@ export const Quantity = styled(BaseSpan)`
 
 export const Arrow = styled.div`
   cursor: pointer;
-  margin: 0 5px;
 `;
 
 export const Value = styled.span`

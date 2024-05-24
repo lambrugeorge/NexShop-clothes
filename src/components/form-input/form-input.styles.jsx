@@ -14,11 +14,10 @@ export const FormInputLabel = styled.label`
   font-size: 16px;
   font-weight: normal;
   position: absolute;
-  pointer-events: none; 
+  pointer-events: none;
   left: 5px;
   top: 10px;
   transition: 300ms ease all;
-
   ${({ shrink }) => shrink && shrinkLabelStyles};
 `;
 
@@ -41,7 +40,7 @@ export const Input = styled.input`
 
   &:focus ~ ${FormInputLabel} {
     ${shrinkLabelStyles};
-  } 
+  }
 `;
 
 export const Group = styled.div`

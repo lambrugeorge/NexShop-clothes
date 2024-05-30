@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -32,11 +32,10 @@ const Navigation = () => {
         </LogoContainer>
         <NavLinks>
           <NavLink to='/shop'>SHOP</NavLink>
-
           {currentUser ? (
-            <NavLink as='span' onClick={signOutUser}>
+            <span onClick={signOutUser} style={{ cursor: 'pointer' }}>
               SIGN OUT
-            </NavLink>
+            </span>
           ) : (
             <NavLink to='/auth'>SIGN IN</NavLink>
           )}

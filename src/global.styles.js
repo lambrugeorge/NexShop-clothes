@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   padding: 20px 40px;
@@ -19,17 +22,4 @@ a {
 * {
   box-sizing: border-box;
 }
-
-
-
-@media only screen and (max-width: 600px) {
- 
-}
-
-@media only screen and (min-width: 601px) and (max-width: 1024px) {
-
-}
-
-@media only screen and (min-width: 1025px) {
- 
-}
+`

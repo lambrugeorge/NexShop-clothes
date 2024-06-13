@@ -27,11 +27,39 @@ describe('Navigation tests', () => {
                 }
             }
         });
-        const signInLinkElement = screen.getByText(/sign in/i);
-        expect(signInLinkElement).toBeNull();
 
+        const signInLinkElement = screen.queryByText(/sign in/i);
+        expect(signInLinkElement).toBeNull();
 
         const signOutLinkElement = screen.getByText(/sign Out/i);
         expect(signOutLinkElement).toBeInTheDocument();
+    });
+
+    test('It should not render a cart dropdown if isCartOpen is false', () => {
+        renderWithProviders(<Navigation />, {
+            preloadedState: {
+                cart: {
+                    setIsCartOpen: false,
+                    cartItems: []
+                }
+            }
+        });
+
+        const dropdownTextElement = screen.queryByText(/Your cart is empty/i);
+        expect(dropdownTextElement).toBeNull();
+    });
+
+    test('It should render a cart dropdown if isCartOpen is true', () => {
+        renderWithProviders(<Navigation />, {
+            preloadedState: {
+                cart: {
+                    setIsCartOpen: true,
+                    cartItems: []
+                }
+            }
+        });
+
+        const dropdownTextElement = screen.getByText(/Your cart is empty/i);
+        expect(dropdownTextElement).toBeInTheDocument();
     });
 });

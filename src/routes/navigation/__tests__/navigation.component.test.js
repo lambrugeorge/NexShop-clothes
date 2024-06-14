@@ -21,7 +21,7 @@ describe('Navigation tests', () => {
         expect(signOutLinkElement).toBeNull();
     });
 
-    test('It should not render Sign out link and not Sign in link if there is a currentUser', () => {
+    test('It should render a Sign out link and not a Sign in link if there is a currentUser', () => {
         renderWithProviders(<Navigation />, {
             preloadedState: {
                 user: {
@@ -33,7 +33,7 @@ describe('Navigation tests', () => {
         const signInLinkElement = screen.queryByText(/sign in/i);
         expect(signInLinkElement).toBeNull();
 
-        const signOutLinkElement = screen.getByText(/sign Out/i);
+        const signOutLinkElement = screen.getByText(/sign out/i);
         expect(signOutLinkElement).toBeInTheDocument();
     });
 
@@ -41,7 +41,7 @@ describe('Navigation tests', () => {
         renderWithProviders(<Navigation />, {
             preloadedState: {
                 cart: {
-                    setIsCartOpen: false,
+                    isCartOpen: false,
                     cartItems: []
                 }
             }
@@ -55,7 +55,7 @@ describe('Navigation tests', () => {
         renderWithProviders(<Navigation />, {
             preloadedState: {
                 cart: {
-                    setIsCartOpen: true,
+                    isCartOpen: true,
                     cartItems: []
                 }
             }
@@ -65,26 +65,26 @@ describe('Navigation tests', () => {
         expect(dropdownTextElement).toBeInTheDocument();
     });
 
+    test('It should dispatch signOutStart action when clicking on the Sign Out link', async () => {
+        const mockDispatch = jest.fn();
+        jest.spyOn(reactRedux, 'useDispatch').mockReturnValue(mockDispatch);
 
-    test('it should dispatch signOutStater action when clicking on the Sign Out link', () => {
-       const mockDispatch = jest.fn();
-       jest.spyOn(reactRedux, 'useDispatch').mockRejectedValue(mockDispatch);
+        renderWithProviders(<Navigation />, {
+            preloadedState: {
+                user: {
+                    currentUser: {}
+                }
+            }
+        });
 
-       renderWithProviders(<Navigation/>), {
-              preloadedState: {
-                    user: {
-                     currentUser: {}
-                    } 
-              }
-       });
+        const signOutLinkElement = screen.getByText(/sign out/i);
+        expect(signOutLinkElement).toBeInTheDocument();
+        
+        fireEvent.click(signOutLinkElement); 
 
- const signOutLinkElement = screen.getByText(/sign out/i);
-expect(signOutLinkElement).toBeInTheDocument();
-
-await fireEvent.click(signOutLinkElement);
-expect(mockDispatch).toHaveBeenCalled();
-const signOutAction = signOutStart();
-expect(mockDispatch).toHaveBeenCalledWith(signOutAction);
-mockDispatch.mockClear();
-    })
+        expect(mockDispatch).toHaveBeenCalled();
+        expect(mockDispatch).toHaveBeenCalledWith(signOutStart());
+        
+        jest.restoreAllMocks();
+    });
 });

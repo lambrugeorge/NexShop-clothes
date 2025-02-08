@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
   margin: 0;
   padding: 20px 40px;
@@ -33,3 +34,40 @@ a {
 @media only screen and (min-width: 1025px) {
  
 }
+=======
+body {
+  margin: 0;
+  padding: 20px 40px;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+ 
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+
+}
+
+@media only screen and (min-width: 1025px) {
+ 
+}
+>>>>>>> 3f2d8a7766a7c1f49ba963394d6791da6c906e44

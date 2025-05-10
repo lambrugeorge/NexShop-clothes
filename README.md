@@ -5,7 +5,7 @@
 NexShop 🛍️
 
 ![Photo1](1.png)
-![Photo2](2png)
+![Photo2](2.png)
 ![Photo3](3.png)
 ![Photo4](4.png)
 
